@@ -1,9 +1,13 @@
-from django.contrib import admin
 from .models import *
+from django.contrib import admin
 
 
 class TypeAdmin(admin.ModelAdmin):
     list_display = ("id", "nom_type")
+
+
+class TypeServiceAdmin(admin.ModelAdmin):
+    list_display = ("id", "nom_type_service")
 
 
 class CategorieAdmin(admin.ModelAdmin):
@@ -23,6 +27,7 @@ class ContactRsAdmin(admin.ModelAdmin):
 
 
 class ServiceAdmin(admin.ModelAdmin):
+
     list_display = (
         "id",
         "nom",
@@ -33,18 +38,14 @@ class ServiceAdmin(admin.ModelAdmin):
         "quartier_proche",
         "categorie",
         "classe",
+        "type_de_service",
         "contactrs",
     )
 
     def quartier_proche(self, obj):
+        print(obj)
         return "\n".join([a.quartier_proche for a in obj.quartier_proche.all()])
 
-    # @admin.display(description='quartier proche')
-    # def quartier_proche(self, obj):
-    #     deg = Location.objects.filter(personal=obj).first()
-    #     if deg:
-    #         return deg.name_degree
-    #     return None
 
 class MediaAdmin(admin.ModelAdmin):
     list_display = ("id", "nom_media", "service", "type")
@@ -54,13 +55,12 @@ class SeoAdmin(admin.ModelAdmin):
     list_display = ("id", "mot", "service")
 
 
-admin.site.register(Type, TypeAdmin)
-admin.site.register(Categorie, CategorieAdmin)
-admin.site.register(Classement, ClassementAdmin)
+admin.site.register(Seo, SeoAdmin)
+admin.site.register(Media, MediaAdmin)
+admin.site.register(TypeMedia, TypeAdmin)
+admin.site.register(Service, ServiceAdmin)
 admin.site.register(Location, LocationAdmin)
 admin.site.register(ContactRs, ContactRsAdmin)
-admin.site.register(Service, ServiceAdmin)
-admin.site.register(Media, MediaAdmin)
-admin.site.register(Seo, SeoAdmin)
-
-
+admin.site.register(Categorie, CategorieAdmin)
+admin.site.register(Classement, ClassementAdmin)
+admin.site.register(TypeService, TypeServiceAdmin)

@@ -1,11 +1,18 @@
 from django.db import models
 
 
-class Type(models.Model):
+class TypeMedia(models.Model):
     nom_type = models.CharField(max_length=255)
 
     def __str__(self):
         return self.nom_type
+
+
+class TypeService(models.Model):
+    nom_type_service = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.nom_type_service
 
 
 class Categorie(models.Model):
@@ -53,21 +60,27 @@ class Service(models.Model):
     classe = models.ForeignKey(
         Classement, on_delete=models.SET_NULL, blank=True, null=True
     )
+    type_de_service = models.ForeignKey(
+        TypeService, on_delete=models.SET_NULL, blank=True, null=True
+    )
     contactrs = models.OneToOneField(ContactRs, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.nom
+
 
 class Media(models.Model):
     nom_media = models.CharField(max_length=100)
     service = models.ForeignKey(
         Service, on_delete=models.SET_NULL, blank=True, null=True
     )
-    type = models.ForeignKey(Type, on_delete=models.SET_NULL, blank=True, null=True)
-    
-    
+    type = models.ForeignKey(
+        TypeMedia, on_delete=models.SET_NULL, blank=True, null=True
+    )
+
     def __str__(self):
         return self.nom_media
+
 
 class Seo(models.Model):
     mot = models.CharField(max_length=50)
@@ -77,5 +90,3 @@ class Seo(models.Model):
 
     def __str__(self):
         return self.mot
-
-
