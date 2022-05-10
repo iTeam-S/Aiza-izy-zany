@@ -38,10 +38,10 @@ class Location(models.Model):
 
 class ContactRs(models.Model):
     telephone = models.CharField(max_length=20)
-    mail = models.CharField(max_length=100, null=True)
-    skype = models.CharField(max_length=100, null=True)
-    whatsapp = models.CharField(max_length=100, null=True)
-    page_facebook = models.CharField(max_length=255, null=True)
+    mail = models.CharField(max_length=100, null=True, default=None)
+    skype = models.CharField(max_length=100, null=True, default=None)
+    whatsapp = models.CharField(max_length=100, null=True, default=None)
+    page_facebook = models.CharField(max_length=255, null=True, default=None)
 
     def __str__(self):
         return self.telephone
