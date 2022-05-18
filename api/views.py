@@ -1,36 +1,27 @@
 from .serileazers import *
-from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
+from rest_framework import generics
+from rest_framework.permissions import AllowAny
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated
 
+class RegisterView(generics.CreateAPIView):
+    queryset = UserService.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = RegisterSerializer
 
-class TypeMediaViewSet(ModelViewSet):
-    serializer_class = TypeMediaSerializer
-    queryset = TypeMedia.objects.all()
+class ServiceViewSet(ModelViewSet):
 
+    #Securiser à get seulement
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            self.permission_classes = [AllowAny, ]
+        else:
+            self.permission_classes = [IsAuthenticated,]
 
-class CategorieViewSet(ModelViewSet):
-    serializer_class = CategorieSerializer
-    queryset = Categorie.objects.all()
-
-
-class ClassementViewSet(ModelViewSet):
-    serializer_class = ClassementSerializer
-    queryset = Classement.objects.all()
-
-
-class LocationViewSet(ModelViewSet):
-    serializer_class = LocationSerializer
-    queryset = Location.objects.all()
-
-
-class ContactRsViewSet(ModelViewSet):
-    serializer_class = ContactRsSerializer
-    queryset = ContactRs.objects.all()
-
-
-class ServiceViewSet(ReadOnlyModelViewSet):
+        return super(ServiceViewSet, self).get_permissions()
 
     serializer_class = ServiceSerializer
+
 
     def get_queryset(self):
 
@@ -42,7 +33,7 @@ class ServiceViewSet(ReadOnlyModelViewSet):
 
         elif informelle and informelle == "ok":
             queryset = Service.objects.filter(type_de_service=2)
-        
+
         else:
             queryset = Service.objects.all()
 
@@ -52,8 +43,10 @@ class ServiceViewSet(ReadOnlyModelViewSet):
 class MediaViewSet(ModelViewSet):
     serializer_class = MediaSerializer
     queryset = Media.objects.all()
+    permission_classes = [IsAuthenticated,]
 
 
 class SeoViewSet(ModelViewSet):
     serializer_class = SeoSerializer
     queryset = Seo.objects.all()
+    permission_classes = [IsAuthenticated,]
