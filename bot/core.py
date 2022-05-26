@@ -39,6 +39,7 @@ def voir_tout(sender_id, **extends):
 
 @ampalibe.command("/formelle")
 def formelle(sender_id, **extends):
+    print("formelle")
     chat.send_quick_reply(
         sender_id,
         trt.quick_type_service(type_de_service="formelle"),
@@ -46,8 +47,10 @@ def formelle(sender_id, **extends):
         next="Voir plus",
     )
 
+
 @ampalibe.command("/informelle")
 def formelle(sender_id, **extends):
+    print("informelle")
     chat.send_quick_reply(
         sender_id,
         trt.quick_type_service(type_de_service="informelle"),

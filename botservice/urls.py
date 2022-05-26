@@ -12,14 +12,15 @@ router = routers.SimpleRouter()
 router.register("seo", SeoViewSet, basename="seo")
 router.register("media", MediaViewSet, basename="media")
 router.register("service", ServiceViewSet, basename="service")
+router.register("categorie", CategorieViewSet, basename="categorie")
 
 urlpatterns = [
     path("admin/", admin.site.urls), 
     path("api/", include(router.urls)),
-    path('register/', RegisterView.as_view(), name='auth_register'),
+    path('api/register/', RegisterView.as_view(), name='auth_register'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    ]
+]
 
 urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
 

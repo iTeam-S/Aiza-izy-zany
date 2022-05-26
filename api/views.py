@@ -40,6 +40,20 @@ class ServiceViewSet(ModelViewSet):
         return queryset
 
 
+class CategorieViewSet(ModelViewSet):
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            self.permission_classes = [AllowAny, ]
+        else:
+            self.permission_classes = [IsAuthenticated,]
+
+        return super(CategorieViewSet, self).get_permissions()
+
+
+    serializer_class = CategorieSerializer
+    queryset = Categorie.objects.all()
+    
+    
 class MediaViewSet(ModelViewSet):
     serializer_class = MediaSerializer
     queryset = Media.objects.all()

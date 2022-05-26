@@ -61,7 +61,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 class CategorieSerializer(ModelSerializer):
     class Meta:
         model = Categorie
-        fields = ("nom_categ",)
+        fields = "__all__"
 
 
 class ClassementSerializer(ModelSerializer):
