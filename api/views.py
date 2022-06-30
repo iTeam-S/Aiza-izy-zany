@@ -1,6 +1,7 @@
 from .serileazers import *
 from rest_framework import filters
 from rest_framework import generics
+from .permissions import IsAdminAuthenticated
 from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
@@ -29,7 +30,7 @@ class ServiceViewSet(ModelViewSet):
         return super(ServiceViewSet, self).get_permissions()
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    filterset_fields = ["categorie", "type_de_service", "classe"]
+    filterset_fields = ["categorie", "type_de_service", "classe", "active"]
     search_fields = [
         "nom",
         "type_de_service__nom_type_service",
@@ -48,7 +49,7 @@ class CategorieViewSet(ModelViewSet):
             ]
         else:
             self.permission_classes = [
-                IsAuthenticated,
+                IsAdminAuthenticated,
             ]
 
         return super(CategorieViewSet, self).get_permissions()
@@ -65,4 +66,4 @@ class MediaViewSet(ModelViewSet):
     filterset_fields = ["id"]
     queryset = Media.objects.all()
     serializer_class = MediaSerializer
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)

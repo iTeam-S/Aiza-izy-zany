@@ -55,6 +55,8 @@ class ServiceAdmin(admin.ModelAdmin):
         "classe",
         "type_de_service",
         "contactrs",
+        "date_created",
+        "active",
     )
 
     def quartier_proche(self, obj):
