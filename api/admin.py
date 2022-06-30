@@ -66,11 +66,6 @@ class MediaAdmin(admin.ModelAdmin):
     list_display = ("id", "media", "service")
 
 
-class SeoAdmin(admin.ModelAdmin):
-    list_display = ("id", "mot", "service")
-
-
-admin.site.register(Seo, SeoAdmin)
 admin.site.register(Media, MediaAdmin)
 admin.site.register(Service, ServiceAdmin)
 admin.site.register(Location, LocationAdmin)

@@ -67,7 +67,7 @@ class CategorieSerializer(ModelSerializer):
 class ClassementSerializer(ModelSerializer):
     class Meta:
         model = Classement
-        fields = ("nom_class",)
+        fields = "__all__"
 
 
 class LocationSerializer(ModelSerializer):
@@ -99,13 +99,4 @@ class ServiceSerializer(ModelSerializer):
 class MediaSerializer(ModelSerializer):
     class Meta:
         model = Media
-        fields = "__all__"
-
-
-class SeoSerializer(ModelSerializer):
-
-    service = ServiceSerializer()
-
-    class Meta:
-        model = Seo
         fields = "__all__"

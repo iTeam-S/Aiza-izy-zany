@@ -1,3 +1,4 @@
+from re import T
 import time
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -9,7 +10,7 @@ class UserService(AbstractUser):
     num = models.CharField("numero de telephone", max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return self.first_name + self.last_name 
+        return self.first_name + " " + self.last_name
 
 
 class TypeService(models.Model):
@@ -42,10 +43,12 @@ class Location(models.Model):
 
 class ContactRs(models.Model):
     telephone = models.CharField("téléphone", max_length=20)
-    mail = models.CharField("email", max_length=100, null=True)
-    skype = models.CharField("skype", max_length=100, null=True)
-    whatsapp = models.CharField("whatsapp", max_length=100, null=True)
-    page_facebook = models.CharField("page facebook", max_length=255, null=True)
+    mail = models.CharField("email", max_length=100, null=True, blank=True)
+    skype = models.CharField("skype", max_length=100, null=True, blank=True)
+    whatsapp = models.CharField("whatsapp", max_length=100, null=True, blank=True)
+    page_facebook = models.CharField(
+        "page facebook", max_length=255, null=True, blank=True
+    )
 
     def __str__(self):
         return self.telephone
@@ -100,13 +103,3 @@ class Media(models.Model):
 
     def __str__(self):
         return str(self.media)
-
-
-class Seo(models.Model):
-    mot = models.CharField("mot clé", max_length=50)
-    service = models.ForeignKey(
-        Service, on_delete=models.CASCADE, blank=True, null=True
-    )
-
-    def __str__(self):
-        return self.mot

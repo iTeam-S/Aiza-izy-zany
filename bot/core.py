@@ -5,6 +5,7 @@ from conf import Configuration
 
 bot = ampalibe.init(Configuration())
 chat = bot.chat
+query = bot.query
 
 # # create a get started option to get permission of user.
 # bot.chat.get_started(payload="/get_started")
@@ -29,7 +30,8 @@ def main(sender_id, cmd, **extends):
 @ampalibe.command("/rechercher")
 def rechercher(sender_id, **extends):
     # Algo de recherche est ici
-    chat.send_message(sender_id, "bientot la recherche")
+    query.set_action(sender_id, "recherche")
+    chat.send_message(sender_id, const.recherche)
 
 
 @ampalibe.command("/voir_tout")
@@ -57,3 +59,28 @@ def formelle(sender_id, **extends):
         const.text_quick_categorie,
         next="Voir plus",
     )
+
+
+@ampalibe.command("/categorie")
+def resultat_de_categorie(sender_id, type_de_service, nom_categ, **extends):
+    if type_de_service and type_de_service == "formelle":
+        chat.send_template(sender_id, trt.template_service(1, nom_categ), next=True)
+    else:
+        chat.send_template(sender_id, trt.template_service(2, nom_categ), next=True)
+
+
+@ampalibe.command("/description")
+def description(sender_id, service_id, **extends):
+    chat.send_message(sender_id, trt.description(service_id))
+
+
+@ampalibe.command("/contact")
+def contact(sender_id, service_id, **extends):
+    chat.send_message(sender_id, trt.contact(service_id))
+
+
+@ampalibe.action("recherche")
+def recherche(sender_id, cmd, **extends):
+    chat.send_message(sender_id, const.phrase_recherche)
+    chat.send_template(sender_id, trt.recherche(cmd), next="Voir plus")
+    query.set_action(sender_id, None)

@@ -19,3 +19,6 @@ les services disponibles?
 text_quick_service = "De quelle service voulez-vous?"
 
 text_quick_categorie = "De quel categorie de service que vous voulez?"
+
+recherche = "Tapez alors votre mot clé de recherche"
+phrase_recherche = "Voici donc votre resultat de recherche"
