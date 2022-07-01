@@ -8,10 +8,12 @@ from ampalibe.ui import QuickReply, Element, Button
 quick_rep_principal = [
     QuickReply(
         title="RECHERCHER",
+        image_url="https://i.ytimg.com/vi/_NltVXqwGQw/maxresdefault.jpg",
         payload="/rechercher",
     ),
     QuickReply(
         title="VOIR TOUT",
+        image_url="https://thumbs.dreamstime.com/z/style-plat-d-ic%C3%B4ne-de-yeux-logo-isolement-sur-le-fond-illustrations-vecteur-133373134.jpg",
         payload="/voir_tout",
     ),
 ]
@@ -19,11 +21,26 @@ quick_rep_principal = [
 quick_rep_classement = [
     QuickReply(
         title="FORMELLE",
+        image_url="https://img.freepik.com/vecteurs-libre/logo-vectoriel-symbole-smoking-hommes-mafieux-noirs_557439-2630.jpg?w=2000",
         payload="/formelle",
     ),
     QuickReply(
         title="INFORMELLE",
+        image_url="https://c8.alamy.com/compfr/2cy13rd/message-d-accueil-informel-poignee-de-main-abstract-vector-ensemble-de-modeles-de-signature-d-embleme-ou-de-logo-icone-de-lettrage-de-la-fraternite-ou-de-l-equipe-sympathique-main-de-cinq-palmes-2cy13rd.jpg",
         payload="/informelle",
+    ),
+]
+
+quick_retoure_type_de_service = [
+    QuickReply(
+        title="TYPE DE SERVICE",
+        image_url="https://thumbs.dreamstime.com/z/repair-service-logo-design-repair-service-logo-design-166728199.jpg",
+        payload="/retoure_type_service",
+    ),
+    QuickReply(
+        title="MENUS PRINCIPAUX",
+        image_url="https://png.pngtree.com/png-clipart/20190614/original/pngtree-menu-vector-icon-png-image_3791388.jpg",
+        payload="/",
     ),
 ]
 
@@ -62,7 +79,7 @@ def quick_type_service(type_de_service):
     for i in range(len(categorie_nom)):
         quick_rep.append(
             QuickReply(
-                title=categorie_nom[i].upper(),
+                title="🟣 " + categorie_nom[i].upper(),
                 payload=Payload(
                     "/categorie",
                     type_de_service=type_de_service,
@@ -78,20 +95,20 @@ def template(data_service):
     for i in range(len(data_service)):
         list_items.append(
             Element(
-                title=data_service[i].get("nom").upper(),
-                subtitle=f"DOMICILE : {data_service[i].get('quartier')}",
+                title=f"🟪 {data_service[i].get('nom').upper()} 🟪",
+                subtitle=f"🏠 DOMICILE : {data_service[i].get('quartier')} 🏠",
                 image_url=f"{Configuration.APP_URL}/{'/'.join(data_service[i].get('pdc').split('/')[-2:])}",
                 buttons=[
                     Button(
                         type="postback",
-                        title="DESCRIPTION",
+                        title="💠DESCRIPTION💠",
                         payload=Payload(
                             "/description", service_id=data_service[i].get("id")
                         ),
                     ),
                     Button(
                         type="postback",
-                        title="CONTACTS",
+                        title="☎️CONTACTS☎️",
                         payload=Payload(
                             "/contact", service_id=data_service[i].get("id")
                         ),
@@ -125,9 +142,20 @@ def description(service_id):
 
 def contact(service_id):
     _data = data.get_info_service(service_id)
-    return f"\t\tVOICI NOS CONTACTS\n\nNumero : {_data.get('contactrs').get('telephone')}\n\
-{'Email : ' + _data.get('contactrs').get('mail') if _data.get('contactrs').get('mail') else ''}\n\
-{'Skype : ' + _data.get('contactrs').get('skype') if _data.get('contactrs').get('skype') else ''}\n\
-{'Whatsapp : ' + _data.get('contactrs').get('whatsapp') if _data.get('contactrs').get('whatsapp') else ''}\n\
-{'Page facebook : ' + _data.get('contactrs').get('page_facebook') if _data.get('contactrs').get('page_facebook') else ''}\n\n\
-Adresse : {_data.get('adresse')}"
+    return f"\t\tVOICI NOS CONTACTS\n\n☎️Numero : {_data.get('contactrs').get('telephone')}\n\
+{'📩Email : ' + _data.get('contactrs').get('mail') if _data.get('contactrs').get('mail') else ''}\n\
+{'📱Skype : ' + _data.get('contactrs').get('skype') if _data.get('contactrs').get('skype') else ''}\n\
+{'📲Whatsapp : ' + _data.get('contactrs').get('whatsapp') if _data.get('contactrs').get('whatsapp') else ''}\n\
+{'📃Page facebook : ' + _data.get('contactrs').get('page_facebook') if _data.get('contactrs').get('page_facebook') else ''}\n\n\
+🏘️Adresse : {_data.get('adresse')}"
+
+
+def retoure_au_categorie(type_de_service):
+    print(type_de_service)
+    return [
+        QuickReply(
+            title="RETOUR",
+            image_url="https://www.brockeur.com/img/cms/previous-black.png",
+            payload=f"/{type_de_service}",
+        )
+    ]

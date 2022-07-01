@@ -33,10 +33,6 @@ class ClassementAdmin(admin.ModelAdmin):
     list_display = ("id", "nom_class")
 
 
-class LocationAdmin(admin.ModelAdmin):
-    list_display = ("id", "quartier_proche")
-
-
 class ContactRsAdmin(admin.ModelAdmin):
     list_display = ("id", "telephone", "mail", "skype", "whatsapp", "page_facebook")
 
@@ -50,7 +46,6 @@ class ServiceAdmin(admin.ModelAdmin):
         "description",
         "adresse",
         "quartier",
-        "quartier_proche",
         "categorie",
         "classe",
         "type_de_service",
@@ -70,7 +65,6 @@ class MediaAdmin(admin.ModelAdmin):
 
 admin.site.register(Media, MediaAdmin)
 admin.site.register(Service, ServiceAdmin)
-admin.site.register(Location, LocationAdmin)
 admin.site.register(ContactRs, ContactRsAdmin)
 admin.site.register(Categorie, CategorieAdmin)
 admin.site.register(Classement, ClassementAdmin)

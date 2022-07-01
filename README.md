@@ -1,6 +1,35 @@
 # BOT SERVICE
 
 ## Documentation de toutes les APIs
+
+## REGISTER POUR les propriétaire du service
+```
+POST http://127.0.0.1:8000/api/register/
+content-type: application/json
+
+{
+    "first_name": "<nom>",
+    "last_name": "<prenom>",
+    "cin": "<numero cin>",
+    "adresse": "<adresse exacte>",
+    "num": "<numero du telephone>",
+    "email": "<email>",
+    "password": "<password>",
+    "password2": "< confirm password >"
+}
+```
+
+## LOGIN 
+```
+POST http://127.0.0.1:8000/api/login/
+content-type: application/json
+
+{
+    "email": "< son email>",
+    "password": "< son password>"
+}
+
+```
 ## GET
 
 > GET tout les services FORMELS et ACTIVES <br>
@@ -42,7 +71,16 @@ GET http://127.0.0.1:8000/api/service/?classe={id_classe}&active=true
 ```
 GET http://127.0.0.1:8000/api/categorie
 ```
+> GET tous les classement existants de service dans la BDD
 
+```
+GET http://127.0.0.1:8000/api/classement
+```
+> GET tous les types de services existants dans la BDD
+
+```
+GET http://127.0.0.1:8000/api/typedeservice
+```
 ## POST
 
 > AJOUTER un service
@@ -160,7 +198,7 @@ Authorization: Bearer <Token>
 > SUPPRIMER d'un MEDIA pour un service
 
 ```
-PATCH http://127.0.0.1:8000/api/media/{id_media}
+DELETE http://127.0.0.1:8000/api/media/{id_media}
 content-type: application/json
 Authorization: Bearer <Token>
 

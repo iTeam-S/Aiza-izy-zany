@@ -11,12 +11,14 @@ router = routers.DefaultRouter()
 router.register("media", MediaViewSet, "media")
 router.register("service", ServiceViewSet, "service")
 router.register("categorie", CategorieViewSet, "categorie")
+router.register("classement", ClassementViewSet, "classement")
+router.register("typedeservice", TypeServiceViewSet, "typedeservice")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
     path("api/register/", RegisterView.as_view(), name="auth_register"),
-    path("api/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/login/", MyTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
 

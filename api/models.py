@@ -5,9 +5,14 @@ from django.contrib.auth.models import AbstractUser
 
 
 class UserService(AbstractUser):
+    username = models.CharField(max_length=50, blank=True, null=True, unique=False)
+    email = models.EmailField(unique=True, null=True)
     cin = models.CharField("cin", max_length=12, blank=True, null=True)
     adresse = models.CharField("adresse", max_length=100, blank=True, null=True)
     num = models.CharField("numero de telephone", max_length=100, blank=True, null=True)
+
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["first_name", "last_name"]
 
     def __str__(self):
         return self.first_name + " " + self.last_name
@@ -32,13 +37,6 @@ class Classement(models.Model):
 
     def __str__(self):
         return self.nom_class
-
-
-class Location(models.Model):
-    quartier_proche = models.CharField("nom du quartier proche", max_length=255)
-
-    def __str__(self):
-        return self.quartier_proche
 
 
 class ContactRs(models.Model):
@@ -69,7 +67,6 @@ class Service(models.Model):
     description = models.CharField("description", max_length=255)
     adresse = models.CharField("adresse", max_length=255)
     quartier = models.CharField("quartier", max_length=255, null=True)
-    quartier_proche = models.ManyToManyField("Location")
     categorie = models.ForeignKey(
         Categorie, on_delete=models.CASCADE, blank=True, null=True
     )

@@ -3,6 +3,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 from rest_framework.serializers import ModelSerializer, ValidationError
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -18,19 +19,19 @@ class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserService
         fields = (
-            "username",
-            "password",
-            "password2",
-            "email",
             "first_name",
             "last_name",
             "cin",
             "adresse",
             "num",
+            "email",
+            "password",
+            "password2",
         )
         extra_kwargs = {
             "first_name": {"required": True},
             "last_name": {"required": True},
+            "email": {"unique": True},
         }
 
     def validate(self, attrs):
@@ -43,7 +44,6 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = UserService.objects.create(
-            username=validated_data["username"],
             email=validated_data["email"],
             first_name=validated_data["first_name"],
             last_name=validated_data["last_name"],
@@ -58,6 +58,22 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        refresh = self.get_token(self.user)
+        data["refresh"] = str(refresh)
+        data["access"] = str(refresh.access_token)
+
+        # Add extra responses here
+        data["id"] = self.user.id
+        data["email"] = self.user.email
+        data["nom"] = self.user.first_name
+        data["prenom"] = self.user.last_name
+
+        return data
+
+
 class CategorieSerializer(ModelSerializer):
     class Meta:
         model = Categorie
@@ -70,10 +86,10 @@ class ClassementSerializer(ModelSerializer):
         fields = "__all__"
 
 
-class LocationSerializer(ModelSerializer):
+class TypeServiceSerializer(ModelSerializer):
     class Meta:
-        model = Location
-        fields = ("quartier_proche",)
+        model = TypeService
+        fields = "__all__"
 
 
 class ContactRsSerializer(ModelSerializer):
@@ -81,10 +97,10 @@ class ContactRsSerializer(ModelSerializer):
         model = ContactRs
         fields = ("telephone", "mail", "skype", "whatsapp", "page_facebook")
 
-    def validate_mail(self, value):
-        if ContactRs.objects.filter(mail=value).exists():
-            raise ValidationError("Mail already exists")
-        return value
+    # def validate_mail(self, value):
+    #     if ContactRs.objects.filter(mail=value).exists():
+    #         raise ValidationError("Mail already exists")
+    #     return value
 
 
 class ServiceSerializer(ModelSerializer):
@@ -94,6 +110,14 @@ class ServiceSerializer(ModelSerializer):
     class Meta:
         model = Service
         fields = "__all__"
+
+    def create(self, validated_data):
+        contactrs_data = validated_data.pop("contactrs")
+        contactrs_save = ContactRs.objects.create(**contactrs_data)
+        contactrs_save.save()
+        service = Service.objects.create(contactrs=contactrs_save, **validated_data)
+        service.save()
+        return service
 
 
 class MediaSerializer(ModelSerializer):
