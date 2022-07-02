@@ -4,7 +4,7 @@
 
 ## REGISTER POUR les propriétaires du service
 ```
-POST http://127.0.0.1:8000/api/register/
+POST <host>/api/register/
 content-type: application/json
 
 {
@@ -21,7 +21,7 @@ content-type: application/json
 
 ## LOGIN 
 ```
-POST http://127.0.0.1:8000/api/login/
+POST <host>/api/login/
 content-type: application/json
 
 {
@@ -36,57 +36,57 @@ content-type: application/json
 > NB: Dans la BDD, l'id de type du service FORMEL est obligatoirement 1
 
 ```
-GET http://127.0.0.1:8000/api/service/?type_de_service=1&active=true
+GET <host>/api/service/?type_de_service=1&active=true
 ```
 
 > GET tout les services INFORMELS et ACTIVES  <br>
 > NB: Dans la BDD, l'id de type du service INFORMEL est obligatoirement 2
 
 ```
-GET http://127.0.0.1:8000/api/service/?type_de_service=2&active=true
+GET <host>/api/service/?type_de_service=2&active=true
 ```
 > GET tout les services d'un categorie dans un type de service [informel ou formelle] et actives
 
 ```
-GET http://127.0.0.1:8000/api/service/?categorie={id_categorie}&type_de_service={id_type_de_service}&active=true
+GET <host>/api/service/?categorie={id_categorie}&type_de_service={id_type_de_service}&active=true
 ```
 
 >GET toutes les informations concernant un seul service
 
 ```
-GET http://127.0.0.1:8000/api/service/{service_id}
+GET <host>/api/service/{service_id}
 ```
 > GET tout les services recherché à partir d'un mot clé
 
 ```
-GET http://127.0.0.1:8000/api/service/?search={mot_cle}&active=true
+GET <host>/api/service/?search={mot_cle}&active=true
 ```
 > GET tout les services filtrés par sa classe [chaque service est classé de l'un de ces trois classes qui sont GOLD, MEDIUM et LESS. Alors dans la BDD ces derniers ont l'id respectivement 1,2 et 3
 
 ```
-GET http://127.0.0.1:8000/api/service/?classe={id_classe}&active=true
+GET <host>/api/service/?classe={id_classe}&active=true
 ```
 > GET tous les categories existants dans la BDD
 
 ```
-GET http://127.0.0.1:8000/api/categorie
+GET <host>/api/categorie
 ```
 > GET tous les classement existants de service dans la BDD
 
 ```
-GET http://127.0.0.1:8000/api/classement
+GET <host>/api/classement
 ```
 > GET tous les types de services existants dans la BDD
 
 ```
-GET http://127.0.0.1:8000/api/typedeservice
+GET <host>/api/typedeservice
 ```
 ## POST
 
 > AJOUTER un service
 
 ```
-POST http://127.0.0.1:8000/api/service/
+POST <host>/api/service/
 content-type: application/json
 Authorization: Bearer <Token>
 
@@ -113,7 +113,7 @@ Authorization: Bearer <Token>
 > NB : Cet action a besoin d'authentification de la super admin c-à-d seule la super admin la peut faire 
 
 ```
-POST http://127.0.0.1:8000/api/categorie/
+POST <host>/api/categorie/
 content-type: application/json
 Authorization: Bearer <Token>
 
@@ -125,7 +125,7 @@ Authorization: Bearer <Token>
 > AJOUTER un MEDIA pour un service
 
 ```
-POST http://127.0.0.1:8000/api/media/
+POST <host>/api/media/
 content-type: application/json
 Authorization: Bearer <Token>
 
@@ -140,7 +140,7 @@ Authorization: Bearer <Token>
 > MODIFER un service
 
 ```
-PATCH http://127.0.0.1:8000/api/service/{id_service}
+PATCH <host>/api/service/{id_service}
 content-type: application/json
 Authorization: Bearer <Token>
 
@@ -153,7 +153,7 @@ Authorization: Bearer <Token>
 > NB : Cet action a besoin d'authentification de la super admin c-à-d seule la super admin la peut faire 
 
 ```
-PATCH http://127.0.0.1:8000/api/categorie/{id_categorie}
+PATCH <host>/api/categorie/{id_categorie}
 content-type: application/json
 Authorization: Bearer <Token>
 
@@ -165,7 +165,7 @@ Authorization: Bearer <Token>
 > MODIFIER d'un MEDIA pour un service
 
 ```
-PATCH http://127.0.0.1:8000/api/media/{id_media}
+PATCH <host>/api/media/{id_media}
 content-type: application/json
 Authorization: Bearer <Token>
 
@@ -178,7 +178,7 @@ Authorization: Bearer <Token>
 > SUPPRIMER un service
 
 ```
-DELETE http://127.0.0.1:8000/api/service/{id_service}
+DELETE <host>/api/service/{id_service}
 content-type: application/json
 Authorization: Bearer <Token>
 ```
@@ -187,7 +187,7 @@ Authorization: Bearer <Token>
 > NB : Cet action a besoin d'authentification de la super admin c-à-d seule la super admin la peut faire 
 
 ```
-DELETE http://127.0.0.1:8000/api/categorie/{id_categorie}
+DELETE <host>/api/categorie/{id_categorie}
 content-type: application/json
 Authorization: Bearer <Token>
 ```
@@ -195,7 +195,7 @@ Authorization: Bearer <Token>
 > SUPPRIMER d'un MEDIA pour un service
 
 ```
-DELETE http://127.0.0.1:8000/api/media/{id_media}
+DELETE <host>/api/media/{id_media}
 content-type: application/json
 Authorization: Bearer <Token>
 
