@@ -1,4 +1,3 @@
-from re import T
 import time
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -39,19 +38,6 @@ class Classement(models.Model):
         return self.nom_class
 
 
-class ContactRs(models.Model):
-    telephone = models.CharField("téléphone", max_length=20)
-    mail = models.CharField("email", max_length=100, null=True, blank=True)
-    skype = models.CharField("skype", max_length=100, null=True, blank=True)
-    whatsapp = models.CharField("whatsapp", max_length=100, null=True, blank=True)
-    page_facebook = models.CharField(
-        "page facebook", max_length=255, null=True, blank=True
-    )
-
-    def __str__(self):
-        return self.telephone
-
-
 class Service(models.Model):
     nom = models.CharField("nom du service", max_length=50)
 
@@ -76,8 +62,13 @@ class Service(models.Model):
     type_de_service = models.ForeignKey(
         TypeService, on_delete=models.CASCADE, blank=True, null=True
     )
-    contactrs = models.OneToOneField(ContactRs, on_delete=models.CASCADE, null=True)
-
+    telephone = models.CharField("téléphone", max_length=20, null=True)
+    mail = models.CharField("email", max_length=100, null=True, blank=True)
+    skype = models.CharField("skype", max_length=100, null=True, blank=True)
+    whatsapp = models.CharField("whatsapp", max_length=100, null=True, blank=True)
+    page_facebook = models.URLField(
+        "page facebook", max_length=255, null=True, blank=True
+    )
     proprietaire = models.ForeignKey(
         UserService, on_delete=models.CASCADE, blank=True, null=True
     )

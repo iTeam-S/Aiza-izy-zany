@@ -2,20 +2,20 @@
 
 ## Documentation de toutes les APIs
 
-## REGISTER POUR les propriétaire du service
+## REGISTER POUR les propriétaires du service
 ```
 POST http://127.0.0.1:8000/api/register/
 content-type: application/json
 
 {
-    "first_name": "<nom>",
-    "last_name": "<prenom>",
-    "cin": "<numero cin>",
-    "adresse": "<adresse exacte>",
-    "num": "<numero du telephone>",
-    "email": "<email>",
-    "password": "<password>",
-    "password2": "< confirm password >"
+    "first_name": "<nom | string | required>",
+    "last_name": "<prenom | string | required>",
+    "cin": "<numero cin | string | required>",
+    "adresse": "<adresse exacte | string | required>",
+    "num": "<numero du telephone | string | required>",
+    "email": "<email | email | required>",
+    "password": "<password | string | required>",
+    "password2": "<confirm password | string | required>",
 }
 ```
 
@@ -25,8 +25,8 @@ POST http://127.0.0.1:8000/api/login/
 content-type: application/json
 
 {
-    "email": "< son email>",
-    "password": "< son password>"
+    "email": "<son email>",
+    "password": "<son password>"
 }
 
 ```
@@ -91,24 +91,21 @@ content-type: application/json
 Authorization: Bearer <Token>
 
 {
-    "contactrs": {
-        "telephone": "<numero_de_telephone>",
-        "mail": "<adresse_mail>",
-        "skype": "<numero_skype>",
-        "whatsapp": "<numero_watsapp>",
-        "page_facebook": "<lien_page_facebook>"
-    },
-    "nom": "<nom_du_service>",
-    "pdc": <fichier_image>,
-    "description": "<description_du_service>",
-    "adresse": "<adresse>",
-    "quartier": "<quartier>",
-    "active": false,
-    "categorie": <id_categorie>,
-    "classe": <id_classe>,
-    "type_de_service": <id_type_de_service>,
-    "proprietaire": <id_proprietaire>,
-    "quartier_proche": [ids_quartier_proches]
+    "nom": "<nom_du_service | string | required>",
+    "pdc": <fichier_image | file | required>,
+    "description": "<description_du_service | string | required>",
+    "adresse": "<adresse | string | required>",
+    "quartier": "<quartier | string | required>",
+    "telephone": "<numero_de_telephone | string | required>",
+    "mail": "<adresse_mail | string | not required>",
+    "skype": "<numero_skype | string | not required>",
+    "whatsapp": "<numero_watsapp | string | not required>",
+    "page_facebook": "<lien_page_facebook | url | not required>",
+    "active": <Bool | default=false>,
+    "categorie": <id_categorie | integer | required>,
+    "classe": <id_classe | integer | required>,
+    "type_de_service": <id_type_de_service | integer | required>,
+    "proprietaire": <id_proprietaire | integer | required>,
 }
 ```
 

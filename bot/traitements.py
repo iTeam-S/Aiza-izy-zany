@@ -48,8 +48,10 @@ quick_retoure_type_de_service = [
 def quick_type_service(type_de_service):
 
     data_service = data.get_data_type_de_service(type_de_service)
-    data_categorie = data.get_categorie()
+    if not data_service:
+        return f"Pas de service {type_de_service.upper()} disponible pour le moment"
 
+    data_categorie = data.get_categorie()
     categorie_id = []
     for i in range(len(data_categorie)):
         categorie_id.append(data_categorie[i].get("id"))
@@ -70,10 +72,6 @@ def quick_type_service(type_de_service):
             categorie_nom.append(data_categorie[i].get("nom_categ"))
         else:
             pass
-
-    print(categorie_id)
-    print(sorted(categorie))
-    print(categorie_nom)
 
     quick_rep = []
     for i in range(len(categorie_nom)):
@@ -142,16 +140,15 @@ def description(service_id):
 
 def contact(service_id):
     _data = data.get_info_service(service_id)
-    return f"\t\tVOICI NOS CONTACTS\n\n☎️Numero : {_data.get('contactrs').get('telephone')}\n\
-{'📩Email : ' + _data.get('contactrs').get('mail') if _data.get('contactrs').get('mail') else ''}\n\
-{'📱Skype : ' + _data.get('contactrs').get('skype') if _data.get('contactrs').get('skype') else ''}\n\
-{'📲Whatsapp : ' + _data.get('contactrs').get('whatsapp') if _data.get('contactrs').get('whatsapp') else ''}\n\
-{'📃Page facebook : ' + _data.get('contactrs').get('page_facebook') if _data.get('contactrs').get('page_facebook') else ''}\n\n\
+    return f"\t\tVOICI NOS CONTACTS\n\n☎️Numero : {_data.get('telephone')}\n\
+{'📩Email : ' + _data.get('mail') if _data.get('mail') else ''}\n\
+{'📱Skype : ' + _data.get('skype') if _data.get('skype') else ''}\n\
+{'📲Whatsapp : ' + _data.get('whatsapp') if _data.get('whatsapp') else ''}\n\
+{'📃Page facebook : ' + _data.get('page_facebook') if _data.get('page_facebook') else ''}\n\n\
 🏘️Adresse : {_data.get('adresse')}"
 
 
 def retoure_au_categorie(type_de_service):
-    print(type_de_service)
     return [
         QuickReply(
             title="RETOUR",

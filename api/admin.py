@@ -33,10 +33,6 @@ class ClassementAdmin(admin.ModelAdmin):
     list_display = ("id", "nom_class")
 
 
-class ContactRsAdmin(admin.ModelAdmin):
-    list_display = ("id", "telephone", "mail", "skype", "whatsapp", "page_facebook")
-
-
 class ServiceAdmin(admin.ModelAdmin):
 
     list_display = (
@@ -49,7 +45,11 @@ class ServiceAdmin(admin.ModelAdmin):
         "categorie",
         "classe",
         "type_de_service",
-        "contactrs",
+        "telephone",
+        "mail",
+        "skype",
+        "whatsapp",
+        "page_facebook",
         "date_created",
         "active",
     )
@@ -65,7 +65,6 @@ class MediaAdmin(admin.ModelAdmin):
 
 admin.site.register(Media, MediaAdmin)
 admin.site.register(Service, ServiceAdmin)
-admin.site.register(ContactRs, ContactRsAdmin)
 admin.site.register(Categorie, CategorieAdmin)
 admin.site.register(Classement, ClassementAdmin)
 admin.site.register(TypeService, TypeServiceAdmin)

@@ -92,32 +92,10 @@ class TypeServiceSerializer(ModelSerializer):
         fields = "__all__"
 
 
-class ContactRsSerializer(ModelSerializer):
-    class Meta:
-        model = ContactRs
-        fields = ("telephone", "mail", "skype", "whatsapp", "page_facebook")
-
-    # def validate_mail(self, value):
-    #     if ContactRs.objects.filter(mail=value).exists():
-    #         raise ValidationError("Mail already exists")
-    #     return value
-
-
 class ServiceSerializer(ModelSerializer):
-
-    contactrs = ContactRsSerializer()
-
     class Meta:
         model = Service
         fields = "__all__"
-
-    def create(self, validated_data):
-        contactrs_data = validated_data.pop("contactrs")
-        contactrs_save = ContactRs.objects.create(**contactrs_data)
-        contactrs_save.save()
-        service = Service.objects.create(contactrs=contactrs_save, **validated_data)
-        service.save()
-        return service
 
 
 class MediaSerializer(ModelSerializer):
