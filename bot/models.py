@@ -15,6 +15,10 @@ def get_data_type_de_service(type_de_service):
     return data.json()
 
 
+def get_all_services():
+    return requests.get(API_URL + "/service").json()
+
+
 def get_categorie():
     return requests.get(API_URL + "/categorie").json()
 

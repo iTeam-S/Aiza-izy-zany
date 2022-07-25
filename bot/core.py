@@ -77,6 +77,12 @@ def formelle(sender_id, **extends):
         chat.send_message(sender_id, quick_rep)
 
 
+@ampalibe.command("/tout")
+def tout_les_produits(sender_id, **extends):
+    chat.send_message(sender_id, "Voici donc tout les services disponibles")
+    chat.send_template(sender_id, trt.tout_les_produits(), next="Voir plus")
+
+
 @ampalibe.command("/categorie")
 def resultat_de_categorie(sender_id, type_de_service, nom_categ, **extends):
     chat.send_action(sender_id, "mark_seen")
@@ -113,8 +119,17 @@ def contact(sender_id, service_id, **extends):
 @ampalibe.action("recherche")
 def recherche(sender_id, cmd, **extends):
     chat.send_action(sender_id, "mark_seen")
-    chat.send_message(sender_id, const.phrase_recherche)
-    chat.send_template(sender_id, trt.recherche(cmd), next="Voir plus")
+
+    if trt.recherche(cmd):
+        chat.send_message(sender_id, const.phrase_recherche)
+        chat.send_template(sender_id, trt.recherche(cmd), next="Voir plus")
+        query.set_action(sender_id, None)
+        return True
+
+    chat.send_message(sender_id, const.pas_de_donnees_recherche)
+    chat.send_quick_reply(
+        sender_id, trt.quick_rep_principal, const.text_quick_principal
+    )
     query.set_action(sender_id, None)
 
 
