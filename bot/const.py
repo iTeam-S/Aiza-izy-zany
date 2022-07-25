@@ -28,5 +28,8 @@ text_quick_categorie = "De quel categorie de service que vous voulez? ⭐⭐"
 
 recherche = "Tapez alors votre mot clé de recherche 😎😎"
 phrase_recherche = "Voici donc votre resultat de recherche 🤷🏻🤷🏻🤷🏻"
+pas_de_donnees_recherche = (
+    "Aucun service correspond à votre recherche, Veuillez ressayer à nouveau"
+)
 
 retoure = "Retoure aux menus de types de service ou menus principaux ↩↩"

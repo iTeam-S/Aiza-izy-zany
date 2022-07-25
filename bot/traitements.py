@@ -29,6 +29,11 @@ quick_rep_classement = [
         image_url="https://c8.alamy.com/compfr/2cy13rd/message-d-accueil-informel-poignee-de-main-abstract-vector-ensemble-de-modeles-de-signature-d-embleme-ou-de-logo-icone-de-lettrage-de-la-fraternite-ou-de-l-equipe-sympathique-main-de-cinq-palmes-2cy13rd.jpg",
         payload="/informelle",
     ),
+    QuickReply(
+        title="TOUT",
+        image_url="https://cdn-icons-png.flaticon.com/512/1311/1311144.png",
+        payload="/tout",
+    ),
 ]
 
 quick_retoure_type_de_service = [
@@ -61,17 +66,11 @@ def quick_type_service(type_de_service):
         if data_service[i].get("categorie") in categorie_id:
             if data_service[i].get("categorie") not in categorie:
                 categorie.append(data_service[i].get("categorie"))
-            else:
-                pass
-        else:
-            pass
 
     categorie_nom = []
     for i in range(len(data_categorie)):
         if data_categorie[i].get("id") in sorted(categorie):
             categorie_nom.append(data_categorie[i].get("nom_categ"))
-        else:
-            pass
 
     quick_rep = []
     for i in range(len(categorie_nom)):
@@ -118,20 +117,24 @@ def template(data_service):
     return list_items
 
 
+def tout_les_produits():
+    return template(data.get_all_services())
+
+
 def template_service(type_de_service, nom_categ):
     data_service = data.get_service(type_de_service, nom_categ)
     return template(data_service)
 
 
 def recherche(mot_cle):
-    _data = data.recherche(mot_cle)
+    # _data = data.recherche(mot_cle)
 
-    classe = random.choice(range(1, 3))
-    _data_super_classe = data.super_class(classe)
+    # classe = random.choice(range(1, 3))
+    # _data_super_classe = data.super_class(classe)
 
-    if _data:
-        return template(_data)
-    return template(random.sample(_data_super_classe, 3))
+    # if _data:
+    return template(data.recherche(mot_cle))
+    # return template(random.sample(_data_super_classe, 3))
 
 
 def description(service_id):
